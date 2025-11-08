@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/hackagua-quarkus-tp1 .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/hackgurupi-quarkus-tp1 .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/hackagua-quarkus-tp1
+# docker run -i --rm -p 8080:8080 quarkus/hackgurupi-quarkus-tp1
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.9
