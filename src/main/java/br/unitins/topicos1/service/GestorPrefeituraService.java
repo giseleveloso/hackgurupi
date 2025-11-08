@@ -51,6 +51,7 @@ public class GestorPrefeituraService {
         gestor.setNome(dto.nome());
         gestor.setEmail(dto.email());
         gestor.setCpf(dto.cpf());
+        gestor.setSenha(dto.senha());
         gestor.setDataNascimento(dto.dataNascimento());
         gestor.setSecretaria(dto.secretaria());
         gestor.setCargo(dto.cargo());

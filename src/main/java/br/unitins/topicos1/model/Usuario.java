@@ -39,11 +39,8 @@ public abstract class Usuario extends DefaultEntity {
     @Column(nullable = false)
     private Boolean ativo = true;
 
-    @Column(name = "codigo_autenticacao", length = 6)
-    private String codigoAutenticacao;
-
-    @Column(name = "codigo_validade")
-    private LocalDateTime codigoValidade;
+    @Column(length = 100, nullable = false)
+    private String senha;
 
     public String getNome() {
         return nome;
@@ -117,19 +114,11 @@ public abstract class Usuario extends DefaultEntity {
         this.ativo = ativo;
     }
 
-    public String getCodigoAutenticacao() {
-        return codigoAutenticacao;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setCodigoAutenticacao(String codigoAutenticacao) {
-        this.codigoAutenticacao = codigoAutenticacao;
-    }
-
-    public LocalDateTime getCodigoValidade() {
-        return codigoValidade;
-    }
-
-    public void setCodigoValidade(LocalDateTime codigoValidade) {
-        this.codigoValidade = codigoValidade;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

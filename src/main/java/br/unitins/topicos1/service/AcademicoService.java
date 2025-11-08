@@ -51,6 +51,7 @@ public class AcademicoService {
         academico.setNome(dto.nome());
         academico.setEmail(dto.email());
         academico.setCpf(dto.cpf());
+        academico.setSenha(dto.senha());
         academico.setDataNascimento(dto.dataNascimento());
         academico.setInstituicao(dto.instituicao());
         academico.setCurso(dto.curso());

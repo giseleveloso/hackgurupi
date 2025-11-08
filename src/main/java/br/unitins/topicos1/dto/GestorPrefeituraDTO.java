@@ -6,6 +6,7 @@ public record GestorPrefeituraDTO(
     String nome,
     String email,
     String cpf,
+    String senha,
     LocalDate dataNascimento,
     String secretaria,
     String cargo,

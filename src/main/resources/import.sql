@@ -5,10 +5,10 @@
 -- ============================================
 -- USUÁRIOS - ACADÊMICOS
 -- ============================================
-INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontuacao, data_cadastro, ativo) VALUES
-(1, 'Dr. Carlos Silva', 'carlos.silva@email.com', '12345678901', '1985-03-15', 1, 50, '2024-01-10 10:00:00', true),
-(2, 'Prof. Maria Santos', 'maria.santos@email.com', '12345678902', '1982-07-22', 1, 75, '2024-01-11 09:30:00', true),
-(3, 'João Pedro Almeida', 'joao.almeida@email.com', '12345678903', '1998-11-05', 1, 30, '2024-01-15 14:20:00', true);
+INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontuacao, data_cadastro, ativo, senha) VALUES
+(1, 'Dr. Carlos Silva', 'carlos.silva@email.com', '12345678901', '1985-03-15', 1, 50, '2024-01-10 10:00:00', true, '123'),
+(2, 'Prof. Maria Santos', 'maria.santos@email.com', '12345678902', '1982-07-22', 1, 75, '2024-01-11 09:30:00', true, '123'),
+(3, 'João Pedro Almeida', 'joao.almeida@email.com', '12345678903', '1998-11-05', 1, 30, '2024-01-15 14:20:00', true, '123');
 
 INSERT INTO Academico (id, instituicao, curso, lattes, area_atuacao, vinculo_professor) VALUES
 (1, 'UnirG - Centro Universitário', 'Engenharia Civil', 'http://lattes.cnpq.br/1234567890', 'Infraestrutura Urbana', true),
@@ -18,11 +18,11 @@ INSERT INTO Academico (id, instituicao, curso, lattes, area_atuacao, vinculo_pro
 -- ============================================
 -- USUÁRIOS - CIDADÃOS
 -- ============================================
-INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontuacao, data_cadastro, ativo) VALUES
-(4, 'Ana Paula Costa', 'ana.costa@email.com', '12345678904', '1990-05-10', 2, 25, '2024-01-20 11:00:00', true),
-(5, 'Pedro Henrique Lima', 'pedro.lima@email.com', '12345678905', '1995-08-30', 2, 15, '2024-01-21 16:45:00', true),
-(6, 'Juliana Ferreira', 'juliana.ferreira@email.com', '12345678906', '1988-12-18', 2, 40, '2024-01-22 08:30:00', true),
-(7, 'Roberto Carlos Souza', 'roberto.souza@email.com', '12345678907', '1992-04-25', 2, 20, '2024-01-23 13:15:00', true);
+INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontuacao, data_cadastro, ativo, senha) VALUES
+(4, 'Ana Paula Costa', 'ana.costa@email.com', '12345678904', '1990-05-10', 2, 25, '2024-01-20 11:00:00', true, '123'),
+(5, 'Pedro Henrique Lima', 'pedro.lima@email.com', '12345678905', '1995-08-30', 2, 15, '2024-01-21 16:45:00', true, '123'),
+(6, 'Juliana Ferreira', 'juliana.ferreira@email.com', '12345678906', '1988-12-18', 2, 40, '2024-01-22 08:30:00', true, '123'),
+(7, 'Roberto Carlos Souza', 'roberto.souza@email.com', '12345678907', '1992-04-25', 2, 20, '2024-01-23 13:15:00', true, '123');
 
 INSERT INTO Cidadao (id, bairro, interesses_areas) VALUES
 (4, 'Centro', 'Mobilidade,Saúde'),
@@ -33,9 +33,9 @@ INSERT INTO Cidadao (id, bairro, interesses_areas) VALUES
 -- ============================================
 -- USUÁRIOS - GESTORES PREFEITURA
 -- ============================================
-INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontuacao, data_cadastro, ativo) VALUES
-(8, 'Dra. Mariana Oliveira', 'mariana.oliveira@gurupi.to.gov.br', '12345678908', '1978-02-14', 3, 0, '2024-01-05 09:00:00', true),
-(9, 'Eng. Fernando Alves', 'fernando.alves@gurupi.to.gov.br', '12345678909', '1975-09-20', 3, 0, '2024-01-05 09:00:00', true);
+INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontuacao, data_cadastro, ativo, senha) VALUES
+(8, 'Dra. Mariana Oliveira', 'mariana.oliveira@gurupi.to.gov.br', '12345678908', '1978-02-14', 3, 0, '2024-01-05 09:00:00', true, '123'),
+(9, 'Eng. Fernando Alves', 'fernando.alves@gurupi.to.gov.br', '12345678909', '1975-09-20', 3, 0, '2024-01-05 09:00:00', true, '123');
 
 INSERT INTO GestorPrefeitura (id, secretaria, cargo, nivel_acesso) VALUES
 (8, 'Secretaria de Saúde', 'Secretária Adjunta', 2),

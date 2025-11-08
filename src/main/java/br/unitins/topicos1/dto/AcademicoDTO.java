@@ -6,6 +6,7 @@ public record AcademicoDTO(
     String nome,
     String email,
     String cpf,
+    String senha,
     LocalDate dataNascimento,
     String instituicao,
     String curso,

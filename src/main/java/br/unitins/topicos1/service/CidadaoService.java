@@ -51,6 +51,7 @@ public class CidadaoService {
         cidadao.setNome(dto.nome());
         cidadao.setEmail(dto.email());
         cidadao.setCpf(dto.cpf());
+        cidadao.setSenha(dto.senha());
         cidadao.setDataNascimento(dto.dataNascimento());
         cidadao.setBairro(dto.bairro());
         cidadao.setInteressesAreas(dto.interessesAreas());
