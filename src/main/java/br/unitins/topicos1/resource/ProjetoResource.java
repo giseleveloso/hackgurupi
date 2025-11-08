@@ -156,5 +156,18 @@ public class ProjetoResource {
                 .build();
         }
     }
+    
+    @POST
+    @Path("/sincronizar-votos")
+    public Response sincronizarVotos() {
+        try {
+            service.sincronizarTodosProjetos();
+            return Response.ok("{\"message\": \"Votos sincronizados com sucesso\"}").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                .build();
+        }
+    }
 }
 

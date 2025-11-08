@@ -11,6 +11,7 @@ import br.unitins.topicos1.model.AreaTematica;
 import br.unitins.topicos1.model.Projeto;
 import br.unitins.topicos1.model.StatusProjeto;
 import br.unitins.topicos1.repository.ProjetoRepository;
+import br.unitins.topicos1.repository.VotoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -25,31 +26,62 @@ public class ProjetoService {
     @Inject
     AcademicoService academicoService;
     
+    @Inject
+    VotoRepository votoRepository;
+    
+    @Transactional
     public List<Projeto> findAll() {
-        return repository.listAll();
+        List<Projeto> projetos = repository.listAll();
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
     }
     
+    @Transactional
     public Projeto findById(Long id) {
         Projeto projeto = repository.findById(id);
         if (projeto == null)
             throw new NotFoundException("Projeto não encontrado");
+        sincronizarVotos(projeto);
         return projeto;
     }
     
+    public void sincronizarVotos(Projeto projeto) {
+        Long totalVotosReal = votoRepository.countByProjeto(projeto.getId());
+        projeto.setTotalVotos(totalVotosReal.intValue());
+    }
+    
+    @Transactional
+    public void sincronizarTodosProjetos() {
+        List<Projeto> projetos = repository.listAll();
+        projetos.forEach(this::sincronizarVotos);
+    }
+    
+    @Transactional
     public List<Projeto> findPublicos() {
-        return repository.findPublicos();
+        List<Projeto> projetos = repository.findPublicos();
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
     }
     
+    @Transactional
     public List<Projeto> findByAcademico(Long academicoId) {
-        return repository.findByAcademico(academicoId);
+        List<Projeto> projetos = repository.findByAcademico(academicoId);
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
     }
     
+    @Transactional
     public List<Projeto> findByStatus(StatusProjeto status) {
-        return repository.findByStatus(status);
+        List<Projeto> projetos = repository.findByStatus(status);
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
     }
     
+    @Transactional
     public List<Projeto> findTopVotados(int limit) {
-        return repository.findTopVotados(limit);
+        List<Projeto> projetos = repository.findTopVotados(limit);
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
     }
     
     @Transactional
