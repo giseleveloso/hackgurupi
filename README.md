@@ -1,12 +1,12 @@
-# 🚀 InovaGurupi - Portal de Inovação Pública
+# 🚀 VotaAiGurupi - Portal de Inovação Pública
 
 ## 📋 Sobre o Projeto
 
-**InovaGurupi** é uma plataforma inovadora que conecta universidades, prefeitura e cidadãos em um ecossistema de inovação pública. O portal permite que pesquisadores submetam projetos voltados a desafios reais da cidade, baseados em dados oficiais. A população vota e acompanha o impacto dos projetos, enquanto a prefeitura toma decisões com base em evidências e engajamento social.
+**VotaAiGurupi** é uma plataforma inovadora que conecta universidades, prefeitura e cidadãos em um ecossistema de inovação pública. O portal permite que pesquisadores submetam projetos voltados a desafios reais da cidade, baseados em dados oficiais. A população vota e acompanha o impacto dos projetos, enquanto a prefeitura toma decisões com base em evidências e engajamento social.
 
 ### 🎯 Problema que Resolve
 
-Como poder público, é difícil saber o que a população realmente quer e necessita. O InovaGurupi visa permitir que a própria população escolha quais projetos acreditam que trarão mais retorno para a sociedade, unindo a comunidade acadêmica de Gurupi e a sociedade com projetos de valor. Com base nos votos, a prefeitura poderá tomar decisões mais assertivas em quais projetos financiar.
+Como poder público, é difícil saber o que a população realmente quer e necessita. O VotaAiGurupi visa permitir que a própria população escolha quais projetos acreditam que trarão mais retorno para a sociedade, unindo a comunidade acadêmica de Gurupi e a sociedade com projetos de valor. Com base nos votos, a prefeitura poderá tomar decisões mais assertivas em quais projetos financiar.
 
 ## 👥 Três Visões do Portal
 
@@ -81,13 +81,13 @@ Crie um arquivo `.env` ou configure variáveis de ambiente:
 DEV_DB_TYPE=postgresql
 DEV_DB_USER=seu_usuario
 DEV_DB_PASSWORD=sua_senha
-DEV_DB_ADDRESS=jdbc:postgresql://localhost:5432/inovagurupi
+DEV_DB_ADDRESS=jdbc:postgresql://localhost:5432/votaaigurupi
 
 # Produção
 DB_TYPE=postgresql
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
-DB_ADDRESS=jdbc:postgresql://localhost:5432/inovagurupi
+DB_ADDRESS=jdbc:postgresql://localhost:5432/votaaigurupi
 ```
 
 ### Executar em Modo Dev
@@ -173,7 +173,7 @@ O sistema vem com dados de exemplo já populados:
 - ✅ **Tecnologias inovadoras** – 10 pts
 - ✅ **Facilidade de implantação** – 10 pts
 
-## 🎯 Diferenciais do InovaGurupi
+## 🎯 Diferenciais do VotaAiGurupi
 
 1. **Sistema de Gamificação**: Pontos e selos por engajamento
 2. **Avaliação Híbrida**: 50% técnica + 50% popular
