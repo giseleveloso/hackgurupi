@@ -25,10 +25,10 @@ INSERT INTO Usuario (id, nome, email, cpf, data_nascimento, tipo_usuario, pontua
 (7, 'Roberto Carlos Souza', 'roberto.souza@email.com', '12345678907', '1992-04-25', 2, 20, '2024-01-23 13:15:00', true, '123');
 
 INSERT INTO Cidadao (id, cep, bairro, interesses_areas) VALUES
-(4, '77400000', 'Centro', 'Mobilidade,Saúde'),
-(5, '77410010', 'Setor Oeste', 'Educação,Cultura'),
-(6, '77420020', 'Waldir Lins', 'Meio Ambiente,Infraestrutura'),
-(7, '77430030', 'São José', 'Segurança,Saúde');
+(4, '77425330', 'Centro', 'Mobilidade,Saúde'),
+(5, '77403120', 'Setor Oeste', 'Educação,Cultura'),
+(6, '77425250', 'Waldir Lins', 'Meio Ambiente,Infraestrutura'),
+(7, '77425250', 'São José', 'Segurança,Saúde');
 
 -- ============================================
 -- USUÁRIOS - GESTORES PREFEITURA
