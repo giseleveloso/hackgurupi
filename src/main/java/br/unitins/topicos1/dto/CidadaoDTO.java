@@ -8,6 +8,7 @@ public record CidadaoDTO(
     String cpf,
     String senha,
     LocalDate dataNascimento,
+    String cep,
     String bairro,
     String interessesAreas
 ) {}

@@ -53,6 +53,7 @@ public class CidadaoService {
         cidadao.setCpf(dto.cpf());
         cidadao.setSenha(dto.senha());
         cidadao.setDataNascimento(dto.dataNascimento());
+        cidadao.setCep(dto.cep());
         cidadao.setBairro(dto.bairro());
         cidadao.setInteressesAreas(dto.interessesAreas());
         cidadao.setTipoUsuario(TipoUsuario.CIDADAO);
@@ -70,6 +71,7 @@ public class CidadaoService {
         
         cidadao.setNome(dto.nome());
         cidadao.setDataNascimento(dto.dataNascimento());
+        cidadao.setCep(dto.cep());
         cidadao.setBairro(dto.bairro());
         cidadao.setInteressesAreas(dto.interessesAreas());
         

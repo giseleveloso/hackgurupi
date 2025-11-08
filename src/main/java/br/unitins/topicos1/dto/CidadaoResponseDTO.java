@@ -14,6 +14,7 @@ public record CidadaoResponseDTO(
     Integer pontuacao,
     LocalDateTime dataCadastro,
     Boolean ativo,
+    String cep,
     String bairro,
     String interessesAreas
 ) {
@@ -27,6 +28,7 @@ public record CidadaoResponseDTO(
             cidadao.getPontuacao(),
             cidadao.getDataCadastro(),
             cidadao.getAtivo(),
+            cidadao.getCep(),
             cidadao.getBairro(),
             cidadao.getInteressesAreas()
         );
