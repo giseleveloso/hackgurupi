@@ -25,4 +25,3 @@ public class VotoRepository implements PanacheRepository<Voto> {
         return count("projeto.id", projetoId);
     }
 }
-

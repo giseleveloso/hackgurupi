@@ -6,8 +6,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = {
+    @UniqueConstraint(name = "uk_voto_projeto_cidadao", columnNames = {"projeto_id", "cidadao_id"})
+})
 public class Voto extends DefaultEntity {
     
     @ManyToOne
