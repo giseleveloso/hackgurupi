@@ -65,6 +65,15 @@ public class ProjetoResource {
     }
     
     @GET
+    @Path("/desafios/{desafioId}")
+    public Response findByDesafio(@PathParam("desafioId") Long desafioId) {
+        List<ProjetoResponseDTO> projetos = service.findByDesafio(desafioId).stream()
+            .map(ProjetoResponseDTO::valueOf)
+            .toList();
+        return Response.ok(projetos).build();
+    }
+    
+    @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
         try {
