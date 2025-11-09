@@ -39,11 +39,16 @@ public class GeminiClient {
         String requestBody = buildBody(systemPrompt, userJson);
 
         int attempts = 0;
+        int maxAttempts = 3;
         IOException last = null;
         
-        // Retry logic para lidar com rate limiting (429)
-        while (attempts < 2) {
+        LOG.info("🔄 Iniciando comunicação com Google Gemini API...");
+        
+        // Retry logic para lidar com rate limiting (429) e erros de rede
+        while (attempts < maxAttempts) {
             attempts++;
+            LOG.infof("📡 Tentativa %d/%d de conectar ao Gemini...", attempts, maxAttempts);
+            
             HttpURLConnection con = null;
             BufferedReader reader = null;
             try {
@@ -51,6 +56,8 @@ public class GeminiClient {
                 con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                con.setConnectTimeout(30000); // 30 segundos timeout
+                con.setReadTimeout(60000); // 60 segundos timeout de leitura
                 con.setDoOutput(true);
 
                 // Envia o corpo da requisição
@@ -60,27 +67,51 @@ public class GeminiClient {
                 }
 
                 int status = con.getResponseCode();
+                LOG.infof("📊 Status HTTP recebido: %d", status);
                 
                 // Se rate limited, aguarda e tenta novamente
                 if (status == 429) {
-                    LOG.warnf("Rate limited (429), tentando novamente em %d ms...", 800L * attempts);
+                    long waitTime = 1000L * attempts;
+                    LOG.warnf("⏱️  Rate limited (429), aguardando %d ms antes da próxima tentativa...", waitTime);
                     try {
-                        Thread.sleep(800L * attempts);
+                        Thread.sleep(waitTime);
                     } catch (InterruptedException ignored) {
+                        Thread.currentThread().interrupt();
                     }
                     continue;
                 }
                 
                 // Se erro, lê a resposta de erro
                 if (status != 200) {
-                    reader = new BufferedReader(new InputStreamReader(con.getErrorStream(), StandardCharsets.UTF_8));
-                    StringBuilder err = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        err.append(line);
+                    String errorDetails = "";
+                    try {
+                        reader = new BufferedReader(new InputStreamReader(
+                            con.getErrorStream() != null ? con.getErrorStream() : con.getInputStream(), 
+                            StandardCharsets.UTF_8));
+                        StringBuilder err = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            err.append(line);
+                        }
+                        errorDetails = err.toString();
+                    } catch (Exception e) {
+                        errorDetails = "Não foi possível ler detalhes do erro";
                     }
-                    LOG.errorf("Gemini HTTP %d: %s", status, err.toString());
-                    throw new IOException("Gemini HTTP " + status + ": " + err.toString());
+                    
+                    LOG.errorf("❌ Gemini API retornou HTTP %d: %s", status, errorDetails);
+                    
+                    String errorMessage = String.format("Erro HTTP %d na API do Gemini", status);
+                    if (status == 400) {
+                        errorMessage += " (Requisição inválida - verifique o formato dos dados)";
+                    } else if (status == 401 || status == 403) {
+                        errorMessage += " (Chave da API inválida ou sem permissão)";
+                    } else if (status == 404) {
+                        errorMessage += " (Modelo não encontrado)";
+                    } else if (status >= 500) {
+                        errorMessage += " (Erro no servidor do Google)";
+                    }
+                    
+                    throw new IOException(errorMessage + ": " + errorDetails);
                 }
 
                 // Lê a resposta de sucesso
@@ -92,18 +123,38 @@ public class GeminiClient {
                 }
                 String jsonResponse = sb.toString().trim();
                 
-                System.out.println("✅ Resposta recebida do Google Gemini");
+                LOG.info("✅ Resposta recebida do Google Gemini com sucesso!");
                 return extractPrettyJsonFromCandidates(jsonResponse);
                 
             } catch (IOException e) {
                 last = e;
+                LOG.errorf("⚠️ Erro na tentativa %d: %s", attempts, e.getMessage());
+                
+                // Se não for a última tentativa, aguarda antes de tentar novamente
+                if (attempts < maxAttempts) {
+                    long waitTime = 1000L * attempts;
+                    LOG.infof("⏱️  Aguardando %d ms antes da próxima tentativa...", waitTime);
+                    try {
+                        Thread.sleep(waitTime);
+                    } catch (InterruptedException ignored) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
             } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException ignored) {}
+                }
                 if (con != null) {
                     con.disconnect();
                 }
             }
         }
-        throw last != null ? last : new IOException("Falha ao chamar Gemini após múltiplas tentativas");
+        
+        String errorMsg = last != null ? last.getMessage() : "Erro desconhecido";
+        LOG.errorf("❌ Falha após %d tentativas. Último erro: %s", maxAttempts, errorMsg);
+        throw new IOException("Falha ao chamar Gemini após " + maxAttempts + " tentativas: " + errorMsg);
     }
 
     /**

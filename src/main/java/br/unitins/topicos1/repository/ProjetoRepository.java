@@ -25,11 +25,12 @@ public class ProjetoRepository implements PanacheRepository<Projeto> {
     }
     
     public List<Projeto> findPublicos() {
-        return find("status IN (?1, ?2, ?3) ORDER BY totalVotos DESC", 
-            StatusProjeto.APROVADO.getId(),
-            StatusProjeto.EM_EXECUCAO.getId(),
-            StatusProjeto.CONCLUIDO.getId()).list();
-    }
+    return find("status IN (?1, ?2, ?3, ?4) ORDER BY totalVotos DESC", 
+        StatusProjeto.AGUARDANDO_AVALIACAO.getId(),  // <- NOVO
+        StatusProjeto.APROVADO.getId(),
+        StatusProjeto.EM_EXECUCAO.getId(),
+        StatusProjeto.CONCLUIDO.getId()).list();
+}
     
     public List<Projeto> findTopVotados(int limit) {
         return find("status IN (?1, ?2) ORDER BY totalVotos DESC", 
