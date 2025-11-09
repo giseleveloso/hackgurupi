@@ -14,4 +14,8 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
     public Usuario findByCpf(String cpf) {
         return find("cpf", cpf).firstResult();
     }
+    
+    public Long countAtivos() {
+        return count("ativo = true");
+    }
 }

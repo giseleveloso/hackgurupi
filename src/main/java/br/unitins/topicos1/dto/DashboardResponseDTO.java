@@ -11,6 +11,9 @@ public record DashboardResponseDTO(
     Integer totalAcademicos,
     Integer totalCidadaos,
     String areaMaisPropostas,
-    String areaMaisVotada
+    String areaMaisVotada,
+    Integer votosUltimas24h,
+    Integer comentariosUltimas24h,
+    Integer usuariosAtivos
 ) {}
 

@@ -1,5 +1,6 @@
 package br.unitins.topicos1.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import br.unitins.topicos1.model.Voto;
@@ -23,5 +24,9 @@ public class VotoRepository implements PanacheRepository<Voto> {
     
     public Long countByProjeto(Long projetoId) {
         return count("projeto.id", projetoId);
+    }
+    
+    public Long countFromDate(LocalDateTime dataInicial) {
+        return count("dataVoto >= ?1", dataInicial);
     }
 }
