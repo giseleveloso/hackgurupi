@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Anexos - Projeto</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            background: #e9ecef;
+            border-color: #2980b9;
+        }
+        
+        .upload-area.dragging {
+            background: #d4edff;
+            border-color: #2980b9;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        button:hover:not(:disabled) {
+            background: #2980b9;
+        }
+        
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .anexos-list {
+            margin-top: 30px;
+        }
+        
+        .anexo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .anexo-info {
+            flex: 1;
+        }
+        
+        .anexo-nome {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .anexo-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        .anexo-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .anexo-actions button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        .btn-download {
+            background: #27ae60;
+        }
+        
+        .btn-download:hover {
+            background: #229954;
+        }
+        
+        .btn-delete {
+            background: #e74c3c;
+        }
+        
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .progress-bar.active {
+            display: block;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #3498db;
+            transition: width 0.3s;
+        }
+        
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .allowed-types {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📎 Gerenciar Anexos do Projeto</h1>
+        <p class="subtitle">Faça upload de documentos, imagens e outros arquivos</p>
+        
+        <div class="message" id="message"></div>
+        
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <h3>Arraste arquivos aqui ou clique para selecionar</h3>
+                <p class="allowed-types">
+                    Permitido: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, GIF, TXT, CSV, ZIP (máx. 10MB)
+                </p>
+            </div>
+            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.txt,.csv,.zip,.rar">
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="anexos-list">
+            <h2>📋 Anexos do Projeto</h2>
+            <div id="anexosList"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.origin;
+        const PROJETO_ID = 1; // Altere conforme necessário
+        
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const messageEl = document.getElementById('message');
+        
+        // Click para selecionar arquivo
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        // Drag & Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragging');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragging');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragging');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
+        });
+        
+        // Seleção de arquivo
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+        
+        // Upload do arquivo
+        async function handleFileUpload(file) {
+            // Log para debug
+            console.log('📤 Enviando arquivo:');
+            console.log('  - Nome:', file.name);
+            console.log('  - Tipo:', file.type);
+            console.log('  - Tamanho:', file.size);
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('fileName', file.name);
+            formData.append('mimeType', file.type || 'application/octet-stream');
+            
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+            
+            try {
+                const response = await fetch(`${API_URL}/projetos/${PROJETO_ID}/anexos`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    showMessage('✅ Arquivo enviado com sucesso!', 'success');
+                    fileInput.value = '';
+                    loadAnexos();
+                } else {
+                    const error = await response.json();
+                    showMessage('❌ Erro: ' + error.error, 'error');
+                }
+            } catch (error) {
+                showMessage('❌ Erro ao enviar arquivo: ' + error.message, 'error');
+            } finally {
+                progressBar.classList.remove('active');
+            }
+        }
+        
+        // Carrega lista de anexos
+        async function loadAnexos() {
+            try {
+                const response = await fetch(`${API_URL}/projetos/${PROJETO_ID}/anexos`);
+                const anexos = await response.json();
+                
+                const listEl = document.getElementById('anexosList');
+                
+                if (anexos.length === 0) {
+                    listEl.innerHTML = '<p style="color: #7f8c8d;">Nenhum anexo ainda.</p>';
+                    return;
+                }
+                
+                listEl.innerHTML = anexos.map(anexo => `
+                    <div class="anexo-item">
+                        <div class="anexo-info">
+                            <div class="anexo-nome">${anexo.nomeArquivo}</div>
+                            <div class="anexo-meta">
+                                ${formatBytes(anexo.tamanho)} • 
+                                ${new Date(anexo.dataUpload).toLocaleString('pt-BR')}
+                            </div>
+                        </div>
+                        <div class="anexo-actions">
+                            <button class="btn-download" onclick="downloadAnexo(${anexo.id}, '${anexo.nomeArquivo}')">
+                                ⬇️ Baixar
+                            </button>
+                            <button class="btn-delete" onclick="deleteAnexo(${anexo.id})">
+                                🗑️ Excluir
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Erro ao carregar anexos:', error);
+            }
+        }
+        
+        // Download de anexo
+        async function downloadAnexo(anexoId, fileName) {
+            const url = `${API_URL}/projetos/${PROJETO_ID}/anexos/${anexoId}/download`;
+            window.open(url, '_blank');
+        }
+        
+        // Deleta anexo
+        async function deleteAnexo(anexoId) {
+            if (!confirm('Deseja realmente excluir este anexo?')) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/projetos/${PROJETO_ID}/anexos/${anexoId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showMessage('✅ Anexo excluído com sucesso!', 'success');
+                    loadAnexos();
+                } else {
+                    showMessage('❌ Erro ao excluir anexo', 'error');
+                }
+            } catch (error) {
+                showMessage('❌ Erro: ' + error.message, 'error');
+            }
+        }
+        
+        // Mostra mensagem
+        function showMessage(text, type) {
+            messageEl.textContent = text;
+            messageEl.className = 'message ' + type;
+            messageEl.style.display = 'block';
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Formata bytes
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+        
+        // Carrega anexos ao iniciar
+        loadAnexos();
+    </script>
+</body>
+</html>
+

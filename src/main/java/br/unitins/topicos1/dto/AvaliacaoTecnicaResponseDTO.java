@@ -17,7 +17,12 @@ public record AvaliacaoTecnicaResponseDTO(
     BigDecimal criterioInovacao,
     BigDecimal criterioOrcamento,
     String justificativa,
-    LocalDateTime dataAvaliacao
+    LocalDateTime dataAvaliacao,
+    Boolean geradaPorIA,
+    String analiseIA,
+    String statusAvaliacao,
+    LocalDateTime dataAprovacao,
+    String motivoRejeicao
 ) {
     public static AvaliacaoTecnicaResponseDTO valueOf(AvaliacaoTecnica avaliacao) {
         return new AvaliacaoTecnicaResponseDTO(
@@ -32,7 +37,12 @@ public record AvaliacaoTecnicaResponseDTO(
             avaliacao.getCriterioInovacao(),
             avaliacao.getCriterioOrcamento(),
             avaliacao.getJustificativa(),
-            avaliacao.getDataAvaliacao()
+            avaliacao.getDataAvaliacao(),
+            avaliacao.getGeradaPorIA(),
+            avaliacao.getAnaliseIA(),
+            avaliacao.getStatusAvaliacao().getLabel(),
+            avaliacao.getDataAprovacao(),
+            avaliacao.getMotivoRejeicao()
         );
     }
 }

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Simples - Teste</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        h1 { margin-bottom: 20px; }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .logs {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Upload - Simples</h1>
+    
+    <form id="uploadForm">
+        <div class="form-group">
+            <label for="projetoId">ID do Projeto:</label>
+            <input type="number" id="projetoId" value="1" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="file">Arquivo:</label>
+            <input type="file" id="file" required>
+            <small style="color: #666;">
+                Permitido: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, GIF, TXT, CSV, ZIP (máx. 10MB)
+            </small>
+        </div>
+        
+        <button type="submit" id="uploadBtn">📤 Fazer Upload</button>
+    </form>
+    
+    <div class="result" id="result"></div>
+    
+    <div class="logs">
+        <strong>📋 Logs:</strong>
+        <div id="logs"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const resultEl = document.getElementById('result');
+        const logsEl = document.getElementById('logs');
+        
+        // Função para adicionar log
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString('pt-BR');
+            const emoji = type === 'error' ? '❌' : type === 'success' ? '✅' : '📝';
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `[${timestamp}] ${emoji} ${message}`;
+            logsEl.appendChild(logEntry);
+            logsEl.scrollTop = logsEl.scrollHeight;
+        }
+        
+        // Função para mostrar resultado
+        function showResult(message, type) {
+            resultEl.textContent = message;
+            resultEl.className = 'result ' + type;
+            resultEl.style.display = 'block';
+        }
+        
+        // Handler do formulário
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const projetoId = document.getElementById('projetoId').value;
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showResult('Nenhum arquivo selecionado', 'error');
+                addLog('Erro: Nenhum arquivo selecionado', 'error');
+                return;
+            }
+            
+            // Logs de validação
+            addLog('Iniciando upload...');
+            addLog(`Projeto ID: ${projetoId}`);
+            addLog(`Nome do arquivo: "${file.name}"`);
+            addLog(`Tipo MIME: ${file.type || '(vazio)'}`);
+            addLog(`Tamanho: ${(file.size / 1024).toFixed(2)} KB`);
+            
+            // Validação de extensão
+            if (!file.name.includes('.')) {
+                const msg = 'Arquivo deve ter extensão (ex: .pdf, .jpg)';
+                showResult(msg, 'error');
+                addLog(msg, 'error');
+                return;
+            }
+            
+            // Validação de tamanho
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            if (file.size > maxSize) {
+                const msg = 'Arquivo muito grande (máx: 10MB)';
+                showResult(msg, 'error');
+                addLog(msg, 'error');
+                return;
+            }
+            
+            // Prepara FormData
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('fileName', file.name);
+            formData.append('mimeType', file.type || 'application/octet-stream');
+            
+            addLog('FormData preparado:');
+            addLog(`  - file: [File object]`);
+            addLog(`  - fileName: "${file.name}"`);
+            addLog(`  - mimeType: "${file.type || 'application/octet-stream'}"`);
+            
+            // Desabilita botão
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = '⏳ Enviando...';
+            
+            try {
+                addLog('Enviando requisição...');
+                const response = await fetch(`/projetos/${projetoId}/anexos`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                addLog(`Status da resposta: ${response.status} ${response.statusText}`);
+                
+                if (response.ok) {
+                    const anexo = await response.json();
+                    const msg = `✅ Upload completo! ID: ${anexo.id}`;
+                    showResult(msg, 'success');
+                    addLog(msg, 'success');
+                    addLog(`URL do arquivo: ${anexo.urlArquivo}`);
+                    
+                    // Limpa form
+                    fileInput.value = '';
+                } else {
+                    const error = await response.json();
+                    const msg = error.error || 'Erro desconhecido';
+                    showResult('❌ ' + msg, 'error');
+                    addLog('Erro: ' + msg, 'error');
+                }
+            } catch (error) {
+                const msg = 'Erro de rede: ' + error.message;
+                showResult('❌ ' + msg, 'error');
+                addLog(msg, 'error');
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = '📤 Fazer Upload';
+            }
+        });
+        
+        // Log inicial
+        addLog('Página carregada. Pronto para upload!');
+    </script>
+</body>
+</html>
+
