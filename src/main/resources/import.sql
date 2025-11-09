@@ -96,7 +96,12 @@ INSERT INTO Comentario (id, projeto_id, cidadao_id, texto, data_comentario, edit
 INSERT INTO Desafio (id, titulo, descricao, area_tematica, status, orcamento_disponivel, data_inicio, data_fim, prioridade) VALUES
 (1, 'Redução do Desperdício de Água', 'Como podemos reduzir o desperdício de água potável em áreas urbanas de Gurupi através de soluções tecnológicas e educacionais?', 4, 1, 100000.00, '2024-03-01', '2024-08-31', 5),
 (2, 'Mobilidade Universitária Sustentável', 'Desenvolver soluções de transporte sustentável entre os campi universitários e principais bairros da cidade', 1, 1, 80000.00, '2024-03-15', '2024-09-30', 4),
-(3, 'Digitalização dos Serviços Públicos', 'Criar plataforma unificada para acesso digital aos serviços públicos municipais, reduzindo filas e burocracia', 8, 3, 200000.00, '2024-06-01', '2024-12-31', 5);
+(3, 'Digitalização dos Serviços Públicos', 'Criar plataforma unificada para acesso digital aos serviços públicos municipais, reduzindo filas e burocracia', 8, 3, 200000.00, '2024-06-01', '2024-12-31', 5),
+(4, 'Mobilidade Urbana Sustentável', 'Melhorar a mobilidade urbana de Gurupi por meio de políticas e ferramentas que integrem transporte público, mobilidade ativa e acessibilidade.', 1, 1, 20000.00, '2024-04-01', '2024-09-30', 5),
+(5, 'Gurupi sem Enchentes', 'Desenvolver estratégias de prevenção e mitigação de enchentes em bairros afetados, promovendo uma infraestrutura urbana mais resiliente.', 9, 1, 25000.00, '2024-04-15', '2024-11-30', 5),
+(6, 'ReciclaGurupi - Educação e Engajamento Ambiental', 'Promover a conscientização e o engajamento da população em práticas sustentáveis de coleta seletiva e gestão de resíduos.', 4, 1, 10000.00, '2024-05-01', '2024-10-31', 4),
+(7, 'Gurupi em Dados Abertos', 'Tornar os dados públicos de Gurupi mais acessíveis e compreensíveis, estimulando a transparência, o controle social e a inovação cívica.', 8, 1, 12000.00, '2024-05-10', '2024-12-15', 4),
+(8, 'Cadastro Único Integrado - Assistência Social Digital', 'Unificar o cadastro de famílias em situação de vulnerabilidade, garantindo atendimento mais eficaz e políticas públicas mais assertivas.', 6, 1, 18000.00, '2024-06-01', '2024-12-31', 5);
 
 -- ============================================
 -- REPOSITÓRIO DE DADOS

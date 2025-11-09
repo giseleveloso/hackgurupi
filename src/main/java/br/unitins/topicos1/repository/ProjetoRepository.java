@@ -1,5 +1,6 @@
 package br.unitins.topicos1.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.unitins.topicos1.model.AreaTematica;
@@ -43,6 +44,50 @@ public class ProjetoRepository implements PanacheRepository<Projeto> {
     
     public Long countByAreaTematica(AreaTematica area) {
         return count("areaTematica", area.getId());
+    }
+
+    public List<Projeto> findByAcademicoWithFilters(
+        Long academicoId,
+        Integer statusId,
+        Integer areaId,
+        String q,
+        String order
+    ) {
+        StringBuilder where = new StringBuilder("academico.id = ?1");
+        List<Object> params = new ArrayList<>();
+        params.add(academicoId);
+        int idx = 2;
+
+        if (statusId != null) {
+            where.append(" AND status = ?").append(idx);
+            params.add(statusId);
+            idx++;
+        }
+        if (areaId != null) {
+            where.append(" AND areaTematica = ?").append(idx);
+            params.add(areaId);
+            idx++;
+        }
+        if (q != null && !q.isBlank()) {
+            String search = q.trim().toLowerCase();
+            if (!search.isEmpty()) {
+                where.append(" AND LOWER(titulo) LIKE ?").append(idx);
+                params.add("%" + search + "%");
+                idx++;
+            }
+        }
+
+        String orderNormalized = order != null ? order.trim().toLowerCase() : "";
+        String orderBy = " ORDER BY dataSubmissao DESC";
+        if ("antigos".equals(orderNormalized)) {
+            orderBy = " ORDER BY dataSubmissao ASC";
+        } else if ("votados".equals(orderNormalized)) {
+            orderBy = " ORDER BY totalVotos DESC";
+        } else if ("recentes".equals(orderNormalized)) {
+            orderBy = " ORDER BY dataSubmissao DESC";
+        }
+
+        return find(where.toString() + orderBy, params.toArray()).list();
     }
 }
 
