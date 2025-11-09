@@ -39,6 +39,22 @@ public class AvaliacaoTecnica extends DefaultEntity {
     
     @Column(name = "data_avaliacao", nullable = false)
     private LocalDateTime dataAvaliacao;
+    
+    // Campos para avaliação por IA
+    @Column(name = "gerada_por_ia", nullable = false)
+    private Boolean geradaPorIA = false;
+    
+    @Column(name = "analise_ia", columnDefinition = "TEXT")
+    private String analiseIA;
+    
+    @Column(name = "status_avaliacao", nullable = false)
+    private Integer statusAvaliacao = StatusAvaliacao.APROVADA.getId();
+    
+    @Column(name = "data_aprovacao")
+    private LocalDateTime dataAprovacao;
+    
+    @Column(name = "motivo_rejeicao", columnDefinition = "TEXT")
+    private String motivoRejeicao;
 
     public Projeto getProjeto() {
         return projeto;
@@ -110,6 +126,46 @@ public class AvaliacaoTecnica extends DefaultEntity {
 
     public void setDataAvaliacao(LocalDateTime dataAvaliacao) {
         this.dataAvaliacao = dataAvaliacao;
+    }
+
+    public Boolean getGeradaPorIA() {
+        return geradaPorIA;
+    }
+
+    public void setGeradaPorIA(Boolean geradaPorIA) {
+        this.geradaPorIA = geradaPorIA;
+    }
+
+    public String getAnaliseIA() {
+        return analiseIA;
+    }
+
+    public void setAnaliseIA(String analiseIA) {
+        this.analiseIA = analiseIA;
+    }
+
+    public StatusAvaliacao getStatusAvaliacao() {
+        return StatusAvaliacao.valueOf(statusAvaliacao);
+    }
+
+    public void setStatusAvaliacao(StatusAvaliacao statusAvaliacao) {
+        this.statusAvaliacao = statusAvaliacao.getId();
+    }
+
+    public LocalDateTime getDataAprovacao() {
+        return dataAprovacao;
+    }
+
+    public void setDataAprovacao(LocalDateTime dataAprovacao) {
+        this.dataAprovacao = dataAprovacao;
+    }
+
+    public String getMotivoRejeicao() {
+        return motivoRejeicao;
+    }
+
+    public void setMotivoRejeicao(String motivoRejeicao) {
+        this.motivoRejeicao = motivoRejeicao;
     }
 }
 

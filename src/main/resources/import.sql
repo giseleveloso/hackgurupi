@@ -72,13 +72,15 @@ INSERT INTO Voto (id, projeto_id, cidadao_id, data_voto, ip_address) VALUES
 -- ============================================
 -- AVALIAÇÕES TÉCNICAS
 -- ============================================
-INSERT INTO AvaliacaoTecnica (id, projeto_id, gestor_id, nota, criterio_viabilidade, criterio_impacto, criterio_inovacao, criterio_orcamento, justificativa, data_avaliacao) VALUES
-(1, 1, 8, 8.50, 8.0, 9.0, 8.5, 8.5, 'Projeto bem estruturado com viabilidade técnica comprovada. Impacto significativo na mobilidade urbana.', '2024-02-09 10:30:00'),
-(2, 1, 9, 8.50, 8.5, 8.5, 8.0, 9.0, 'Proposta inovadora e com orçamento realista. Recomendo aprovação com prioridade média.', '2024-02-09 14:00:00'),
-(3, 2, 8, 9.00, 9.0, 10.0, 8.5, 8.5, 'Excelente projeto com potencial de transformação do acesso à saúde. Altamente recomendado.', '2024-02-11 09:00:00'),
-(4, 2, 9, 9.00, 8.5, 9.5, 9.0, 9.0, 'Projeto com forte embasamento técnico e grande relevância social. Aprovação recomendada.', '2024-02-11 15:30:00'),
-(5, 3, 8, 8.75, 9.0, 8.5, 8.0, 9.5, 'Projeto sustentável e bem planejado. Impacto positivo na qualidade de vida.', '2024-02-14 11:00:00'),
-(6, 3, 9, 8.75, 9.5, 8.0, 8.0, 9.5, 'Boa relação custo-benefício. Alinhado com objetivos de sustentabilidade da prefeitura.', '2024-02-14 16:20:00');
+-- Avaliações manuais (não geradas por IA)
+-- status_avaliacao: 2 = APROVADA
+INSERT INTO AvaliacaoTecnica (id, projeto_id, gestor_id, nota, criterio_viabilidade, criterio_impacto, criterio_inovacao, criterio_orcamento, justificativa, data_avaliacao, gerada_por_ia, analise_ia, status_avaliacao, data_aprovacao, motivo_rejeicao) VALUES
+(1, 1, 8, 8.50, 8.0, 9.0, 8.5, 8.5, 'Projeto bem estruturado com viabilidade técnica comprovada. Impacto significativo na mobilidade urbana.', '2024-02-09 10:30:00', false, NULL, 2, '2024-02-09 10:30:00', NULL),
+(2, 1, 9, 8.50, 8.5, 8.5, 8.0, 9.0, 'Proposta inovadora e com orçamento realista. Recomendo aprovação com prioridade média.', '2024-02-09 14:00:00', false, NULL, 2, '2024-02-09 14:00:00', NULL),
+(3, 2, 8, 9.00, 9.0, 10.0, 8.5, 8.5, 'Excelente projeto com potencial de transformação do acesso à saúde. Altamente recomendado.', '2024-02-11 09:00:00', false, NULL, 2, '2024-02-11 09:00:00', NULL),
+(4, 2, 9, 9.00, 8.5, 9.5, 9.0, 9.0, 'Projeto com forte embasamento técnico e grande relevância social. Aprovação recomendada.', '2024-02-11 15:30:00', false, NULL, 2, '2024-02-11 15:30:00', NULL),
+(5, 3, 8, 8.75, 9.0, 8.5, 8.0, 9.5, 'Projeto sustentável e bem planejado. Impacto positivo na qualidade de vida.', '2024-02-14 11:00:00', false, NULL, 2, '2024-02-14 11:00:00', NULL),
+(6, 3, 9, 8.75, 9.5, 8.0, 8.0, 9.5, 'Boa relação custo-benefício. Alinhado com objetivos de sustentabilidade da prefeitura.', '2024-02-14 16:20:00', false, NULL, 2, '2024-02-14 16:20:00', NULL);
 
 -- ============================================
 -- COMENTÁRIOS

@@ -20,5 +20,21 @@ public class AvaliacaoTecnicaRepository implements PanacheRepository<AvaliacaoTe
     public AvaliacaoTecnica findByProjetoAndGestor(Long projetoId, Long gestorId) {
         return find("projeto.id = ?1 AND gestor.id = ?2", projetoId, gestorId).firstResult();
     }
+    
+    public List<AvaliacaoTecnica> findPendentes() {
+        return find("statusAvaliacao = ?1 ORDER BY dataAvaliacao DESC", 1).list(); // 1 = PENDENTE_APROVACAO
+    }
+    
+    public List<AvaliacaoTecnica> findByStatus(Integer statusId) {
+        return find("statusAvaliacao = ?1 ORDER BY dataAvaliacao DESC", statusId).list();
+    }
+    
+    public List<AvaliacaoTecnica> findGeradasPorIA() {
+        return find("geradaPorIA = true ORDER BY dataAvaliacao DESC").list();
+    }
+    
+    public Long countPendentes() {
+        return count("statusAvaliacao = ?1", 1); // 1 = PENDENTE_APROVACAO
+    }
 }
 
