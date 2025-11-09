@@ -76,6 +76,21 @@ public class ProjetoService {
         projetos.forEach(this::sincronizarVotos);
         return projetos;
     }
+
+    @Transactional
+    public List<Projeto> findByAcademicoWithFilters(
+        Long academicoId,
+        Integer statusId,
+        Integer areaId,
+        String q,
+        String order
+    ) {
+        List<Projeto> projetos = repository.findByAcademicoWithFilters(
+            academicoId, statusId, areaId, q, order
+        );
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
+    }
     
     @Transactional
     public List<Projeto> findTopVotados(int limit) {

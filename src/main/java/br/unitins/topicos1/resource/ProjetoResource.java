@@ -5,7 +5,6 @@ import java.util.List;
 import br.unitins.topicos1.dto.ProjetoDTO;
 import br.unitins.topicos1.dto.ProjetoResponseDTO;
 import br.unitins.topicos1.model.Projeto;
-import br.unitins.topicos1.model.StatusProjeto;
 import br.unitins.topicos1.service.ProjetoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -57,8 +56,15 @@ public class ProjetoResource {
     
     @GET
     @Path("/academico/{academicoId}")
-    public Response findByAcademico(@PathParam("academicoId") Long academicoId) {
-        List<ProjetoResponseDTO> projetos = service.findByAcademico(academicoId).stream()
+    public Response findByAcademico(
+        @PathParam("academicoId") Long academicoId,
+        @QueryParam("statusId") Integer statusId,
+        @QueryParam("areaId") Integer areaId,
+        @QueryParam("q") String q,
+        @QueryParam("order") String order
+    ) {
+        List<ProjetoResponseDTO> projetos = service
+            .findByAcademicoWithFilters(academicoId, statusId, areaId, q, order).stream()
             .map(ProjetoResponseDTO::valueOf)
             .toList();
         return Response.ok(projetos).build();
