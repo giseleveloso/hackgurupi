@@ -2,12 +2,13 @@ package br.unitins.topicos1.model;
 
 public enum StatusProjeto {
     RASCUNHO(1, "Rascunho"),
-    AGUARDANDO_APROVACAO(2, "Aguardando Aprovação"),
-    APROVADO(3, "Aprovado"),
-    REJEITADO(4, "Rejeitado"),
-    EM_EXECUCAO(5, "Em Execução"),
-    CONCLUIDO(6, "Concluído"),
-    CANCELADO(7, "Cancelado");
+    AGUARDANDO_AVALIACAO(2, "Aguardando Avaliação"),
+    AGUARDANDO_APROVACAO(3, "Aguardando Aprovação"),
+    APROVADO(4, "Aprovado"),
+    REJEITADO(5, "Rejeitado"),
+    EM_EXECUCAO(6, "Em Execução"),
+    CONCLUIDO(7, "Concluído"),
+    CANCELADO(8, "Cancelado");
 
     private final Integer id;
     private final String label;

@@ -87,6 +87,10 @@ public class AvaliacaoTecnicaService {
 
         // Atualizar nota técnica do projeto (média de todas as avaliações)
         calcularNotaTecnicaProjeto(dto.projetoId());
+        
+        // Mudar status do projeto para AGUARDANDO_APROVACAO após avaliação
+        projeto.setStatus(br.unitins.topicos1.model.StatusProjeto.AGUARDANDO_APROVACAO);
+        
 
         return avaliacao;
     }

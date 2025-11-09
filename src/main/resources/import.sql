@@ -45,11 +45,11 @@ INSERT INTO GestorPrefeitura (id, secretaria, cargo, nivel_acesso) VALUES
 -- PROJETOS
 -- ============================================
 INSERT INTO Projeto (id, academico_id, titulo, resumo_popular, descricao_completa, objetivos, metodologia, resultados_esperados, orcamento_estimado, prazo_execucao, area_tematica, status, data_submissao, data_aprovacao, total_votos, total_visualizacoes, nota_tecnica, nota_popular, nota_final) VALUES
-(1, 1, 'Sistema de Monitoramento de Tráfego Inteligente', 'Câmeras e sensores para reduzir congestionamentos no centro de Gurupi e melhorar o fluxo de veículos', 'Projeto visa implementar um sistema inteligente de monitoramento de tráfego utilizando câmeras e sensores IoT para coletar dados em tempo real sobre o fluxo de veículos', 'Reduzir congestionamentos; Melhorar mobilidade urbana; Fornecer dados para tomada de decisão', 'Instalação de sensores em pontos estratégicos; Desenvolvimento de plataforma de análise de dados; Integração com semáforos inteligentes', 'Redução de 30% nos congestionamentos; Economia de tempo no deslocamento; Dados para planejamento urbano', 150000.00, 12, 1, 3, '2024-02-01 10:00:00', '2024-02-10 14:30:00', 45, 234, 8.50, 4.50, 6.50),
+(1, 1, 'Sistema de Monitoramento de Tráfego Inteligente', 'Câmeras e sensores para reduzir congestionamentos no centro de Gurupi e melhorar o fluxo de veículos', 'Projeto visa implementar um sistema inteligente de monitoramento de tráfego utilizando câmeras e sensores IoT para coletar dados em tempo real sobre o fluxo de veículos', 'Reduzir congestionamentos; Melhorar mobilidade urbana; Fornecer dados para tomada de decisão', 'Instalação de sensores em pontos estratégicos; Desenvolvimento de plataforma de análise de dados; Integração com semáforos inteligentes', 'Redução de 30% nos congestionamentos; Economia de tempo no deslocamento; Dados para planejamento urbano', 150000.00, 12, 1, 2, '2024-02-01 10:00:00', NULL, 45, 234, NULL, 4.50, NULL),
 
-(2, 2, 'Plataforma Digital de Telemedicina para Comunidades Rurais', 'Consultas médicas online para moradores da zona rural, facilitando acesso à saúde sem precisar ir até a cidade', 'Desenvolvimento de plataforma de telemedicina conectando médicos da cidade com moradores de áreas rurais, incluindo aplicativo mobile e sistema de agendamento', 'Ampliar acesso à saúde; Reduzir deslocamentos; Atendimento preventivo', 'Desenvolvimento de app mobile; Treinamento de agentes comunitários; Parceria com Secretaria de Saúde', 'Atendimento de 5000 pessoas no primeiro ano; Redução de 40% nas viagens para consultas básicas; Diagnósticos mais rápidos', 80000.00, 8, 2, 3, '2024-02-03 09:15:00', '2024-02-12 11:00:00', 89, 456, 9.00, 8.90, 8.95),
+(2, 2, 'Plataforma Digital de Telemedicina para Comunidades Rurais', 'Consultas médicas online para moradores da zona rural, facilitando acesso à saúde sem precisar ir até a cidade', 'Desenvolvimento de plataforma de telemedicina conectando médicos da cidade com moradores de áreas rurais, incluindo aplicativo mobile e sistema de agendamento', 'Ampliar acesso à saúde; Reduzir deslocamentos; Atendimento preventivo', 'Desenvolvimento de app mobile; Treinamento de agentes comunitários; Parceria com Secretaria de Saúde', 'Atendimento de 5000 pessoas no primeiro ano; Redução de 40% nas viagens para consultas básicas; Diagnósticos mais rápidos', 80000.00, 8, 2, 2, '2024-02-03 09:15:00', NULL, 89, 456, NULL, 8.90, NULL),
 
-(3, 1, 'Revitalização da Praça Central com Energia Solar', 'Reforma da praça principal com iluminação solar, bicicletário e espaços verdes para lazer da comunidade', 'Projeto de revitalização completa da Praça Central incluindo novo paisagismo, iluminação LED com energia solar, ciclovia, academia ao ar livre e playground', 'Criar espaço de convivência; Promover sustentabilidade; Incentivar práticas saudáveis', 'Projeto arquitetônico participativo; Instalação de painéis solares; Plantio de árvores nativas; Construção de equipamentos', 'Economia de 100% na energia da praça; Aumento de 200% na frequência de visitantes; Redução de ilhas de calor', 250000.00, 10, 4, 3, '2024-02-05 16:00:00', '2024-02-15 10:20:00', 67, 389, 8.75, 6.70, 7.73),
+(3, 1, 'Revitalização da Praça Central com Energia Solar', 'Reforma da praça principal com iluminação solar, bicicletário e espaços verdes para lazer da comunidade', 'Projeto de revitalização completa da Praça Central incluindo novo paisagismo, iluminação LED com energia solar, ciclovia, academia ao ar livre e playground', 'Criar espaço de convivência; Promover sustentabilidade; Incentivar práticas saudáveis', 'Projeto arquitetônico participativo; Instalação de painéis solares; Plantio de árvores nativas; Construção de equipamentos', 'Economia de 100% na energia da praça; Aumento de 200% na frequência de visitantes; Redução de ilhas de calor', 250000.00, 10, 4, 2, '2024-02-05 16:00:00', NULL, 67, 389, NULL, 6.70, NULL),
 
 (4, 3, 'Hub de Inovação e Empreendedorismo Gurupi', 'Espaço para empreendedores, startups e pequenos negócios com mentorias, capacitações e networking', 'Criação de hub físico de inovação com salas de coworking, auditório, laboratório maker, e programas de aceleração para startups locais', 'Fomentar empreendedorismo; Gerar empregos; Atrair investimentos; Desenvolver ecossistema inovador', 'Reforma de espaço público; Aquisição de equipamentos; Parcerias com SEBRAE e universidades; Programas de mentoria', 'Criação de 150 novos negócios em 2 anos; Geração de 300 empregos; Aumento de 50% na arrecadação via novos negócios', 180000.00, 18, 8, 2, '2024-02-08 14:30:00', NULL, 0, 145, NULL, NULL, NULL),
 
@@ -72,15 +72,18 @@ INSERT INTO Voto (id, projeto_id, cidadao_id, data_voto, ip_address) VALUES
 -- ============================================
 -- AVALIAÇÕES TÉCNICAS
 -- ============================================
--- Avaliações manuais (não geradas por IA)
--- status_avaliacao: 2 = APROVADA
-INSERT INTO AvaliacaoTecnica (id, projeto_id, gestor_id, nota, criterio_viabilidade, criterio_impacto, criterio_inovacao, criterio_orcamento, justificativa, data_avaliacao, gerada_por_ia, analise_ia, status_avaliacao, data_aprovacao, motivo_rejeicao) VALUES
-(1, 1, 8, 8.50, 8.0, 9.0, 8.5, 8.5, 'Projeto bem estruturado com viabilidade técnica comprovada. Impacto significativo na mobilidade urbana.', '2024-02-09 10:30:00', false, NULL, 2, '2024-02-09 10:30:00', NULL),
-(2, 1, 9, 8.50, 8.5, 8.5, 8.0, 9.0, 'Proposta inovadora e com orçamento realista. Recomendo aprovação com prioridade média.', '2024-02-09 14:00:00', false, NULL, 2, '2024-02-09 14:00:00', NULL),
-(3, 2, 8, 9.00, 9.0, 10.0, 8.5, 8.5, 'Excelente projeto com potencial de transformação do acesso à saúde. Altamente recomendado.', '2024-02-11 09:00:00', false, NULL, 2, '2024-02-11 09:00:00', NULL),
-(4, 2, 9, 9.00, 8.5, 9.5, 9.0, 9.0, 'Projeto com forte embasamento técnico e grande relevância social. Aprovação recomendada.', '2024-02-11 15:30:00', false, NULL, 2, '2024-02-11 15:30:00', NULL),
-(5, 3, 8, 8.75, 9.0, 8.5, 8.0, 9.5, 'Projeto sustentável e bem planejado. Impacto positivo na qualidade de vida.', '2024-02-14 11:00:00', false, NULL, 2, '2024-02-14 11:00:00', NULL),
-(6, 3, 9, 8.75, 9.5, 8.0, 8.0, 9.5, 'Boa relação custo-benefício. Alinhado com objetivos de sustentabilidade da prefeitura.', '2024-02-14 16:20:00', false, NULL, 2, '2024-02-14 16:20:00', NULL);
+-- Avaliações removidas para permitir teste do fluxo completo:
+-- Aguardando Avaliação → Avaliar → Aguardando Aprovação → Aprovar/Rejeitar
+-- 
+-- Para testar, use o botão "Analisar Tecnicamente" no frontend com os projetos 1, 2 e 3
+-- 
+-- INSERT INTO AvaliacaoTecnica (id, projeto_id, gestor_id, nota, criterio_viabilidade, criterio_impacto, criterio_inovacao, criterio_orcamento, justificativa, data_avaliacao) VALUES
+-- (1, 1, 8, 8.50, 8.0, 9.0, 8.5, 8.5, 'Projeto bem estruturado com viabilidade técnica comprovada. Impacto significativo na mobilidade urbana.', '2024-02-09 10:30:00'),
+-- (2, 1, 9, 8.50, 8.5, 8.5, 8.0, 9.0, 'Proposta inovadora e com orçamento realista. Recomendo aprovação com prioridade média.', '2024-02-09 14:00:00'),
+-- (3, 2, 8, 9.00, 9.0, 10.0, 8.5, 8.5, 'Excelente projeto com potencial de transformação do acesso à saúde. Altamente recomendado.', '2024-02-11 09:00:00'),
+-- (4, 2, 9, 9.00, 8.5, 9.5, 9.0, 9.0, 'Projeto com forte embasamento técnico e grande relevância social. Aprovação recomendada.', '2024-02-11 15:30:00'),
+-- (5, 3, 8, 8.75, 9.0, 8.5, 8.0, 9.5, 'Projeto sustentável e bem planejado. Impacto positivo na qualidade de vida.', '2024-02-14 11:00:00'),
+-- (6, 3, 9, 8.75, 9.5, 8.0, 8.0, 9.5, 'Boa relação custo-benefício. Alinhado com objetivos de sustentabilidade da prefeitura.', '2024-02-14 16:20:00');
 
 -- ============================================
 -- COMENTÁRIOS
@@ -104,6 +107,28 @@ INSERT INTO Desafio (id, titulo, descricao, area_tematica, status, orcamento_dis
 (6, 'ReciclaGurupi - Educação e Engajamento Ambiental', 'Promover a conscientização e o engajamento da população em práticas sustentáveis de coleta seletiva e gestão de resíduos.', 4, 1, 10000.00, '2024-05-01', '2024-10-31', 4),
 (7, 'Gurupi em Dados Abertos', 'Tornar os dados públicos de Gurupi mais acessíveis e compreensíveis, estimulando a transparência, o controle social e a inovação cívica.', 8, 1, 12000.00, '2024-05-10', '2024-12-15', 4),
 (8, 'Cadastro Único Integrado - Assistência Social Digital', 'Unificar o cadastro de famílias em situação de vulnerabilidade, garantindo atendimento mais eficaz e políticas públicas mais assertivas.', 6, 1, 18000.00, '2024-06-01', '2024-12-31', 5);
+
+-- ============================================
+-- VINCULAÇÃO PROJETOS x DESAFIOS
+-- ============================================
+-- Tabela que relaciona projetos com desafios (Many-to-Many)
+
+-- Desafio 1: "Redução do Desperdício de Água" (Meio Ambiente)
+-- vinculado ao Projeto 3: "Revitalização da Praça Central com Energia Solar"
+INSERT INTO ProjetoDesafio (id, projeto_id, desafio_id, data_vinculacao) VALUES
+(1, 3, 1, '2024-02-16 10:00:00');
+
+-- Desafio 2: "Mobilidade Universitária Sustentável" (Mobilidade)
+-- vinculado ao Projeto 1: "Sistema de Monitoramento de Tráfego Inteligente"
+INSERT INTO ProjetoDesafio (id, projeto_id, desafio_id, data_vinculacao) VALUES
+(2, 1, 2, '2024-02-11 11:00:00');
+
+-- Desafio 3: "Digitalização dos Serviços Públicos" (Tecnologia)
+-- vinculado a 3 projetos de tecnologia:
+INSERT INTO ProjetoDesafio (id, projeto_id, desafio_id, data_vinculacao) VALUES
+(3, 2, 3, '2024-02-13 12:00:00'),  -- Telemedicina
+(4, 4, 3, '2024-02-15 14:30:00'),  -- Hub de Inovação
+(5, 5, 3, '2024-02-18 09:00:00');  -- App de Segurança
 
 -- ============================================
 -- REPOSITÓRIO DE DADOS

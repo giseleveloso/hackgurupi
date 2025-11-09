@@ -29,6 +29,9 @@ public class ProjetoService {
     @Inject
     VotoRepository votoRepository;
     
+    @Inject
+    br.unitins.topicos1.repository.ProjetoDesafioRepository projetoDesafioRepository;
+    
     @Transactional
     public List<Projeto> findAll() {
         List<Projeto> projetos = repository.listAll();
@@ -66,6 +69,16 @@ public class ProjetoService {
     @Transactional
     public List<Projeto> findByAcademico(Long academicoId) {
         List<Projeto> projetos = repository.findByAcademico(academicoId);
+        projetos.forEach(this::sincronizarVotos);
+        return projetos;
+    }
+    
+    @Transactional
+    public List<Projeto> findByDesafio(Long desafioId) {
+        List<br.unitins.topicos1.model.ProjetoDesafio> vinculos = projetoDesafioRepository.findByDesafio(desafioId);
+        List<Projeto> projetos = vinculos.stream()
+            .map(br.unitins.topicos1.model.ProjetoDesafio::getProjeto)
+            .toList();
         projetos.forEach(this::sincronizarVotos);
         return projetos;
     }
@@ -157,7 +170,7 @@ public class ProjetoService {
         if (!projeto.getStatus().equals(StatusProjeto.RASCUNHO))
             throw new IllegalArgumentException("Projeto já foi submetido");
         
-        projeto.setStatus(StatusProjeto.AGUARDANDO_APROVACAO);
+        projeto.setStatus(StatusProjeto.AGUARDANDO_AVALIACAO);
         projeto.setDataSubmissao(LocalDateTime.now());
     }
     
