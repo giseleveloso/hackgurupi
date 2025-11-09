@@ -40,7 +40,9 @@ public class VotoService {
 
         // Validar se projeto pode ser votado
         if (!projeto.getStatus().equals(StatusProjeto.APROVADO) &&
-                !projeto.getStatus().equals(StatusProjeto.EM_EXECUCAO))
+                !projeto.getStatus().equals(StatusProjeto.EM_EXECUCAO)
+                && !projeto.getStatus().equals(StatusProjeto.AGUARDANDO_AVALIACAO))
+
             throw new IllegalArgumentException("Projeto não disponível para votação");
 
         // Verificar se cidadão já votou NESTE projeto
